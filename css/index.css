@@ -1,32 +1,33 @@
-@import url('./variabels.css');
-@import url('./reset.css');
+@import url("./variabels.css");
+@import url("./reset.css");
+@import url("./fonts.css");
 /* Start Default Style */
 html {
   box-sizing: border-box;
   font-size: 62.5%;
-
 }
-body{
-    line-height: 1.6;
-    font-size: 1.6rem;
-    font-family: var(--primary-font);
+body {
+  direction: rtl;
+  line-height: 1.6;
+  font-size: 1.6rem;
+  font-family: var(--primary-font);
 }
 *,
 *::before,
-*::after{
-    outline: none;
-    box-sizing: inherit;
+*::after {
+  outline: none;
+  box-sizing: inherit;
 }
-a{
-    text-decoration: none;
-    color: var(--dark-color);
-    transition: all 400ms ease;
+a {
+  text-decoration: none;
+  color: var(--dark-color);
+  transition: all 400ms ease;
 }
 
-a:hover{
-    color: #1e83f0;
+a:hover {
+  color: #1e83f0;
 }
-i{
-    user-select: none;
+i {
+  user-select: none;
 }
 /* Finish Default Style */
