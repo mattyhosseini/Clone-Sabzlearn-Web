@@ -365,27 +365,45 @@ i {
 }
 
 /* Finish Lateset Courses Styles */
-/
 
 /* Start About Us Style */
- .about-us{
+.about-us {
   margin: 6rem 0;
- }
- .about-us__header{
+}
+.about-us__header {
   display: flex;
   flex-direction: column;
-
- }
- .about-us__subtitle{
+}
+.about-us__subtitle {
   color: #9c9c9c;
   font-size: 1.5rem;
- }
+}
 
+.about-us__box {
+  display: flex;
+  align-items: center;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  margin: 2rem 0;
+  padding: 2rem 1.5rem;
+}
 
+.about-us__icon {
+  color: #666;
+  font-size: 6.5rem;
+}
 
+.about-us__box-left {
+  display: flex;
+  flex-direction: column;
+  margin-right: 1rem;
+}
+
+.bout-us__box-title {
+  font-weight: bold;
+  font-size: 1.8rem;
+}
 /* Finish About Us Style */
-
-
 
 /* Start Helper Classes */
 
@@ -418,4 +436,4 @@ i {
   height: 60%;
   background-color: rgba(43, 206, 86, 0.2);
 }
-/* Finish Helper Classes *
+/*  Finish Helper Classes  */
