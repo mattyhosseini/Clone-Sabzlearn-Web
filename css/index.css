@@ -365,6 +365,27 @@ i {
 }
 
 /* Finish Lateset Courses Styles */
+/
+
+/* Start About Us Style */
+ .about-us{
+  margin: 6rem 0;
+ }
+ .about-us__header{
+  display: flex;
+  flex-direction: column;
+
+ }
+ .about-us__subtitle{
+  color: #9c9c9c;
+  font-size: 1.5rem;
+ }
+
+
+
+/* Finish About Us Style */
+
+
 
 /* Start Helper Classes */
 
@@ -397,4 +418,4 @@ i {
   height: 60%;
   background-color: rgba(43, 206, 86, 0.2);
 }
-/* Finish Helper Classes */
+/* Finish Helper Classes *
