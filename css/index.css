@@ -437,3 +437,11 @@ i {
   background-color: rgba(43, 206, 86, 0.2);
 }
 /*  Finish Helper Classes  */
+
+/* Start Popular Courses Style */
+
+.popular {
+  margin: 5rem 0;
+}
+
+/* Finish Popular Courses Style */
