@@ -64,16 +64,44 @@
   font-size: 1.7rem;
   color: #7d7d7f;
 }
+
+.article-read {
+  background-color: #f2f2f2;
+  border-radius: 3rem;
+  padding: 2rem 3rem;
+  margin: 3rem 0;
+}
+
+.article-read__title {
+  display: block;
+  color: #333333;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.article-read__link {
+  line-height: 2;
+  font-size: 1.5rem;
+  color: #1e83f0;
+}
+
+.article-read__link:hover {
+  text-decoration: underline;
+}
+
 /* Finish Article Details Styles */
 
 /* Start Sidebar Styles */
 
-.course-info__courses-title {
-  position: relative;
-}
 .course-info {
   overflow: hidden;
 }
+
+.course-info__courses-title {
+  position: relative;
+}
+
 .course-info__courses-title::before {
   content: "";
   position: absolute;
@@ -82,9 +110,9 @@
   background-color: var(--primary-color);
   border-top-left-radius: 8px;
   border-bottom-left-radius: 12px;
-  top: -5px;
   right: -27px;
-  transform: skew(-10deg);
+  top: -5px;
+  transform: skewX(-10deg);
 }
 
 .sidebar-articles__list {
@@ -133,3 +161,13 @@
 }
 
 /* Finish Sidebar Styles */
+
+/* Start Helper Classes */
+
+.paragraph {
+  font-size: 1.5rem;
+  line-height: 3rem;
+  color: #7d7e7f;
+}
+
+/* Finish Helper Classes */
