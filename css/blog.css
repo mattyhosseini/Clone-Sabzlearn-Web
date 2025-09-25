@@ -114,19 +114,63 @@
   display: block;
   margin: 0 auto;
 }
-.article-social-media{
+.article-social-media {
   display: flex;
   align-items: center;
 }
-.article-social-media__text{
+.article-social-media__text {
   font-size: 1.5rem;
   color: #7b7e7f;
 }
-.article-social-media__link{
+.article-social-media__link {
   display: flex;
   align-items: center;
-  margin: .5rem;
+  margin: 0.5rem;
   color: #7b868a;
+}
+
+.suggestion-articles {
+  margin: 4rem 0;
+  padding: 3.5rem 2.5rem;
+  border-radius: 0.5rem;
+  background-color: #f0f2f7;
+}
+.suggestion-article__conten {
+  display: flex;
+  align-items: center;
+}
+.suggestion-article__right {
+  position: relative;
+}
+.suggestion-article__left {
+  display: flex;
+  flex-direction: row-reverse;
+  position: relative;
+}
+.suggestion-article__right::before {
+  content: "قدیمی تر";
+  position: absolute;
+  top: -2.3rem;
+  left: 2rem;
+  font-size: 1.8rem;
+  color: #adb5db;
+  font-weight: bold;
+  transform: rotate(180deg);
+}
+.suggestion-article__left::before {
+  content: "جدید تر";
+  position: absolute;
+  top: -2.3rem;
+  right: 2rem;
+  font-size: 1.5rem;
+  color: #adb5db;
+}
+.suggestion-article__icon-link {
+  color: #adb5db;
+}
+.suggestion-article__link {
+  text-align: center;
+  margin: 0 2rem;
 }
 /* Finish Article Details Styles */
 
