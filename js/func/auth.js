@@ -48,4 +48,41 @@ const register = () => {
     });
 };
 
-export { register };
+const login = () => {
+  const identifierInput = document.querySelector("#identifier");
+  const passwordInput = document.querySelector("#password");
+
+  const userInfos = {
+    identifier: identifierInput.value.trim(),
+    password: passwordInput.value.trim(),
+  };
+
+  fetch(`http://localhost:4000/v1/auth/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userInfos),
+  })
+    .then((res) => {
+      if (res.status === 401) {
+        showSwal(
+          "کاربری با این اطلاعات یافت نشد",
+          "error",
+          "تصحیح اطلاعات",
+          () => {}
+        );
+      } else if (res.status === 200) {
+        showSwal("با موفقیت وارد شدید", "success", "ورود به پنل", () => {
+          location.href = "index.html";
+        });
+      }
+      return res.json()
+    })
+    .then((result) => {
+      saveIntoLocalStorage("user", { token: result.accessToken });
+      console.log("User saved:", localStorage.getItem("user"));
+    });
+};
+
+export { register, login };
