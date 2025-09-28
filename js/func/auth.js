@@ -1,3 +1,5 @@
+import { showSwal } from "./utils.js";
+
 const register = () => {
   const nameInput = document.querySelector("#name");
   const usernameInput = document.querySelector("#username");
@@ -25,20 +27,16 @@ const register = () => {
     .then((res) => {
       console.log(res);
       if (res.status === 201) {
-        swal({
-          title: "ثبت نام با موفقیت انجام شد",
-          icon: "success",
-          buttons: "ورود به پنل",
-        }).then(result =>{
-          console.log(result);
-          location.href = 'index.html'
-        })
+        showSwal(
+          "ثبت نام با موفقیت انجام شد",
+          "success",
+          "ورود به پنل",
+          (result) => {
+            location.href = "index.html";
+          }
+        );
       } else if (res.status === 409) {
-        swal({
-          title: "نام کاربری یا ایمیل قبلا استفاده شده",
-          icon: "error",
-          buttons: " تصحیح اطلاعات  ",
-        });
+        showSwal("نام کاربری یا ایمیل قبلا استفاده شده", "error", () => {});
       }
       return res.json();
     })
