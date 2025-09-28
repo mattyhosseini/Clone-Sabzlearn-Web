@@ -87,19 +87,19 @@ const login = () => {
 
 const getMe = async () => {
   const token = getToken();
+
   if (!token) {
     return false;
-  } else {
-    const res = await fetch(`http://localhost:400/v1/auth/me`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const data = await res.json();
-
-    return data;
   }
+
+  const res = await fetch(`http://localhost:4000/v1/auth/me`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const data = await res.json();
+
+  return data;
 };
 
 export { register, login, getMe };

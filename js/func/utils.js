@@ -14,8 +14,11 @@ const getFromLocalStorage = (key) => {
   return JSON.stringify(localStorage.getItem(key));
 };
 
+
 const getToken = () => {
-  const userInfos = JSON.parse(localStorage.getItem("user")).token;
+  const userInfos = JSON.parse(localStorage.getItem("user"));
   return userInfos ? userInfos.token : null;
 };
+
+
 export { showSwal, saveIntoLocalStorage, getFromLocalStorage, getToken };
