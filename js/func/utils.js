@@ -20,5 +20,10 @@ const getToken = () => {
   return userInfos ? userInfos.token : null;
 };
 
+const isLogin = () =>{
+  const userInfos = localStorage.getItem('user')
+  return userInfos ? true : false 
+}
 
-export { showSwal, saveIntoLocalStorage, getFromLocalStorage, getToken };
+
+export { showSwal, saveIntoLocalStorage, getFromLocalStorage, getToken , isLogin };
