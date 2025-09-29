@@ -2,6 +2,7 @@ import {
   getAndShowAllCourses,
   getAndShowPopularCourses,
   getAndShowPresellCourses,
+  getAndShowArticles
 } from "./func/shared.js";
 
 const $ = document;
@@ -22,6 +23,7 @@ window.addEventListener("load", () => {
   getAndShowAllCourses();
   getAndShowPopularCourses();
   getAndShowPresellCourses();
+  getAndShowArticles()
 });
 
 function typeWriter(text, index) {
