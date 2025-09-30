@@ -4,7 +4,6 @@ const showUserNameInNavebar = () => {
   const isUserLogin = isLogin();
   const navbarProfileBox = document.querySelector(".main-header__profile");
 
-
   if (isUserLogin) {
     const userInfos = getMe().then((data) => {
       navbarProfileBox.setAttribute("href", "index.html");
@@ -22,7 +21,6 @@ const renderTopbarMenus = async () => {
   const res = await fetch(`http://localhost:4000/v1/menus/topbar`);
   const topbarMenus = await res.json();
 
-  
   topBarList.innerHTML = "";
 
   const shuffledArray = topbarMenus.sort((a, b) => 0.5 - Math.random());
@@ -281,12 +279,49 @@ const getAndShowArticles = async () => {
   return articles;
 };
 
+const getAndShowNavbarMenus = async () => {
+  const menusWrapper = document.querySelector("#menus-wrapper");
+
+  const res = await fetch(`http://localhost:4000/v1/menus`);
+  const menus = await res.json();
+
+  menus.forEach((menu) => {
+    menusWrapper.insertAdjacentHTML(
+      "beforeend",
+      `
+    <li class="main-header__item">
+    <a href="#" class="main-header__link">${menu.title}
+      ${
+        menu.submenus.length !== 0
+          ? `<i class="fas fa-angle-down main-header__link-icon"></i>
+        <ul class="main-header__dropdown">
+        ${menu.submenus
+          .map(
+            (submenu) =>
+              `<li class="main-header__dropdown-item">
+            <a href="#" class="main-header__dropdown-link">
+             ${submenu.title}
+            </a>
+          </li>`
+          )
+          .join("")}
+        </ul>`
+          : ""
+      }
+    </a>
+  </li>
+    `
+    );
+  });
+
+  return menus;
+};
 export {
   showUserNameInNavebar,
   renderTopbarMenus,
   getAndShowAllCourses,
   getAndShowPopularCourses,
   getAndShowPresellCourses,
-  getAndShowArticles
-
+  getAndShowArticles,
+  getAndShowNavbarMenus,
 };
