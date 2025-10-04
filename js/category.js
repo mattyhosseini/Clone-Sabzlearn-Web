@@ -1,6 +1,7 @@
 import {
   getAndShowCategoryCourses,
   insertCourseBoxHtmlTemplate,
+  coursesSorting,
 } from './func/shared.js'
 
 window.addEventListener('load', () => {
@@ -12,6 +13,12 @@ window.addEventListener('load', () => {
     )
     const categoryCoursesWrapper = document.querySelector(
       '#category-courses-wrapper'
+    )
+    const coursesFilteringSelections = document.querySelectorAll(
+      '.courses-top-bar__selection-item'
+    )
+    const selectionTitleElem = document.querySelector(
+      '.courses-top-bar__selection-title'
     )
 
     // Show Category Courses By row showType
@@ -30,6 +37,7 @@ window.addEventListener('load', () => {
       )
     }
 
+    // Show Category Courses By row showType (User Selection)
     coursesShowTypeIcons.forEach((coursesShowTypeIcon) => {
       coursesShowTypeIcon.addEventListener('click', (event) => {
         coursesShowTypeIcons.forEach((icon) =>
@@ -52,6 +60,36 @@ window.addEventListener('load', () => {
             categoryCoursesWrapper
           )
         }
+      })
+    })
+
+    // Show Category Courses By user filtering method
+    coursesFilteringSelections.forEach((coursesFilteringSelection) => {
+      coursesFilteringSelection.addEventListener('click', (event) => {
+        coursesFilteringSelections.forEach((selectionElem) =>
+          selectionElem.classList.remove(
+            'courses-top-bar__selection-item--active'
+          )
+        )
+
+        event.target.classList.add('courses-top-bar__selection-item--active')
+
+        selectionTitleElem.innerHTML = ''
+        selectionTitleElem.insertAdjacentHTML(
+          'beforeend',
+          `
+            ${event.target.innerHTML}
+            <i class="fas fa-angle-down courses-top-bar__selection-icon"></i>
+        `
+        )
+
+        let userFilteringSelection = event.target.dataset.key
+        let shownCourses = coursesSorting([...courses], userFilteringSelection)
+        insertCourseBoxHtmlTemplate(
+          shownCourses,
+          coursesShowType,
+          categoryCoursesWrapper
+        )
       })
     })
   })
