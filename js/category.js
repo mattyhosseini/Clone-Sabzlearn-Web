@@ -104,11 +104,21 @@ window.addEventListener('load', () => {
         'name',
         event.target.value
       )
-      insertCourseBoxHtmlTemplate(
-        shownCourses,
-        coursesShowType,
-        categoryCoursesWrapper
-      )
+      if (shownCourses.length) {
+        insertCourseBoxHtmlTemplate(
+          shownCourses,
+          coursesShowType,
+          categoryCoursesWrapper
+        )
+      } else {
+        categoryCoursesWrapper.innerHTML = ''
+        categoryCoursesWrapper.insertAdjacentHTML(
+          'beforeend',
+          `
+              <div class="alert alert-danger">هیچ دوره‌ای برای این جستجوی شما  وجود ندارد :/</div>
+            `
+        )
+      }
     })
   })
 })
