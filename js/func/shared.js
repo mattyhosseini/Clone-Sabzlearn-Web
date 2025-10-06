@@ -516,20 +516,22 @@ const coursesSorting = (array, filterMethod) => {
 }
 
 const getCourseDetails = () => {
-  console.log(getUrlParam('name'))
   const courseShortName = getUrlParam('name')
-  // Select Elem Dom
+
+  // Select Elems From DOM
   const $ = document
   const courseTitleElem = $.querySelector('.course-info__title')
   const courseDescElem = $.querySelector('.course-info__text')
   const courseCategoryElem = $.querySelector('.course-info__link')
   const courseRegisterInfoElem = $.querySelector('.course-info__register-title')
   const courseStatusElem = $.querySelector('.course-boxes__box-left--subtitle')
-  const courseSupportElem = $.querySelector('.course-boxes__box-left--support')
+  const courseSupperElem = $.querySelector('.course-boxes__box-left--support')
   const courseLastUpdateElem = $.querySelector(
     '.course-boxes__box-left--last-update'
   )
-  const courseCommentElem = $.querySelector('.course-info__total-comment-text')
+  const courseCommentsCountElem = $.querySelector(
+    '.course-info__total-comment-text'
+  )
   const courseStudentsCountElem = $.querySelector(
     '.course-info__total-sale-number'
   )
@@ -545,45 +547,65 @@ const getCourseDetails = () => {
       console.log(course)
       courseTitleElem.innerHTML = course.name
       courseDescElem.innerHTML = course.description
+      
+      
       courseCategoryElem.innerHTML = course.categoryID.title
-      courseSupportElem.innerHTML = course.support
-      courseCommentElem.innerHTML = ` ${course.comments.length} دیدگاه`
-      courseStudentsCountElem.innerHTML = course.courseStudentsCount
       courseRegisterInfoElem.insertAdjacentHTML(
         'beforeend',
         course.isUserRegisteredToThisCourse
-          ? 'شما دانشجوی دوره هستید '
-          : ' ثبت نام در دوره'
+          ? 'دانشجوی دوره هستید'
+          : 'ثبت نام در دوره'
       )
       courseStatusElem.innerHTML = course.isComplete
         ? 'تکمیل شده'
         : 'در حال برگزاری'
-
+      courseSupperElem.innerHTML = course.support
       courseLastUpdateElem.innerHTML = course.updatedAt.slice(0, 10)
+      courseCommentsCountElem.innerHTML = `${course.comments.length} دیدگاه`
+      courseStudentsCountElem.innerHTML = course.courseStudentsCount
 
-      //  Show Courses Sessions
+      // Show Course Sessions
       const sessionsWrapper = $.querySelector('.sessions-wrapper')
+
       if (course.sessions.length) {
         course.sessions.forEach((session, index) => {
           sessionsWrapper.insertAdjacentHTML(
             'beforeend',
             `
-            <div class="accordion-body introduction__accordion-body">
-            <div class="introduction__accordion-right">
-              <span class="introduction__accordion-count">${index + 1}</span>
-              <i
-                class="fab fa-youtube introduction__accordion-icon"
-              ></i>
-              <a href="#" class="introduction__accordion-link">
-                ${session.title}
-              </a>
-            </div>
-            <div class="introduction__accordion-left">
-              <span class="introduction__accordion-time">
-                ${session.time}
-              </span>
-            </div>
-          </div>
+              <div class="accordion-body introduction__accordion-body">
+                <div class="introduction__accordion-right">
+                  <span class="introduction__accordion-count">${
+                    index + 1
+                  }</span>
+                  <i class="fab fa-youtube introduction__accordion-icon"></i>
+                  ${
+                    session.free || course.isUserRegisteredToThisCourse
+                      ? `
+                        <a href="#" class="introduction__accordion-link">
+                          ${session.title}
+                        </a>
+                    `
+                      : `
+                        <span class="introduction__accordion-link">
+                          ${session.title}
+                        </span>
+               
+                    `
+                  }
+                  </div>
+                <div class="introduction__accordion-left">
+                  <span class="introduction__accordion-time">
+                    ${session.time}
+                  </span>
+                  ${
+                    !(session.free || course.isUserRegisteredToThisCourse)
+                      ? `
+                      <i class="fa fa-lock"></i>
+                    `
+                      : ''
+                  }
+                </div>
+              </div>
           `
           )
         })
@@ -591,22 +613,20 @@ const getCourseDetails = () => {
         sessionsWrapper.insertAdjacentHTML(
           'beforeend',
           `
-            <div class="accordion-body introduction__accordion-body">
-            <div class="introduction__accordion-right">
-              <span class="introduction__accordion-count"> -- </span>
-              <i
-                class="fab fa-youtube introduction__accordion-icon"
-              ></i>
-              <a href="#" class="introduction__accordion-link">
-                هنوز جلسه ای برای این دوره اپلود نشده است 
-              </a>
-            </div>
-            <div class="introduction__accordion-left">
-              <span class="introduction__accordion-time">
-                00:00
-              </span>
-            </div>
-          </div>
+              <div class="accordion-body introduction__accordion-body">
+                <div class="introduction__accordion-right">
+                  <span class="introduction__accordion-count"> -- </span>
+                  <i class="fab fa-youtube introduction__accordion-icon"></i>
+                  <a href="#" class="introduction__accordion-link">
+                    هنوز جلسه‌ای آپلود نشده
+                  </a>
+                </div>
+                <div class="introduction__accordion-left">
+                  <span class="introduction__accordion-time">
+                    00:00
+                  </span>
+                </div>
+              </div>
           `
         )
       }
