@@ -7,6 +7,7 @@
 @import url("./course-box.css");
 @import url("./helper.css");
 @import url("./sidbarCoursesBox.css");
+@import url("./breadcrumb.css");
 /* Start Course Info Styles */
 
 .course-info {

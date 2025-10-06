@@ -1,5 +1,5 @@
 import { getMe } from './auth.js'
-import { isLogin, getUrlParam } from './utils.js'
+import { isLogin, getUrlParam, getToken } from './utils.js'
 const showUserNameInNavebar = () => {
   const isUserLogin = isLogin()
   const navbarProfileBox = document.querySelector('.main-header__profile')
@@ -43,13 +43,15 @@ const getAndShowAllCourses = async () => {
       `
     <div class="col-4">
                 <div class="course-box">
-                  <a href="#">
+                  <a href="course.html?name=${course.shortName}">
                     <img src=http://localhost:4000/courses/covers/${
                       course.cover
                     } alt="Course img" class="course-box__img" />
                   </a>
                   <div class="course-box__main">
-                    <a href="#" class="course-box__title">${course.name}</a>
+                    <a href="course.html?name=${
+                      course.shortName
+                    }" class="course-box__title">${course.name}</a>
 
                     <div class="course-box__rating-teacher">
                       <div class="course-box__teacher">
@@ -513,6 +515,48 @@ const coursesSorting = (array, filterMethod) => {
   return outputArray
 }
 
+const getCourseDetails = () => {
+  console.log(getUrlParam('name'))
+  const courseShortName = getUrlParam('name')
+  // Select Elem Dom
+  const $ = document
+  const courseTitleElem = $.querySelector('.course-info__title')
+  const courseDescElem = $.querySelector('.course-info__text')
+  const courseCategoryElem = $.querySelector('.course-info__link')
+  const courseRegisterInfoElem = $.querySelector('.course-info__register-title')
+  const courseStatusElem = $.querySelector('.course-boxes__box-left--subtitle')
+  const courseSupportElem = $.querySelector('.course-boxes__box-left--support')
+  const courseLastUpdateElem = $.querySelector('.course-boxes__box-left--last-update')
+
+  fetch(`http://localhost:4000/v1/courses/${courseShortName}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  })
+    .then((res) => res.json())
+    .then((course) => {
+      console.log(course)
+      courseTitleElem.innerHTML = course.name
+      courseDescElem.innerHTML = course.description
+      courseCategoryElem.innerHTML = course.categoryID.title
+      courseSupportElem.innerHTML = course.support
+      
+      courseRegisterInfoElem.insertAdjacentHTML(
+        'beforeend',
+        course.isUserRegisteredToThisCourse
+          ? 'شما دانشجوی دوره هستید '
+          : ' ثبت نام در دوره'
+      )
+      courseStatusElem.innerHTML = course.isComplete
+        ? 'تکمیل شده'
+        : 'در حال برگزاری'
+
+       courseLastUpdateElem.innerHTML = course.updatedAt.slice(0,10)
+     
+    })
+}
+
 export {
   showUserNameInNavebar,
   renderTopbarMenus,
@@ -524,4 +568,5 @@ export {
   getAndShowCategoryCourses,
   insertCourseBoxHtmlTemplate,
   coursesSorting,
+  getCourseDetails,
 }
