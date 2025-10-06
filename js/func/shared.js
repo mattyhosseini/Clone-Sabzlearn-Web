@@ -612,7 +612,39 @@ const getCourseDetails = () => {
       }
     })
 }
+const getAndShowRelatedCourses = async () => {
+  const courseShortName = getUrlParam('name')
 
+  const courseRelatedCoursesWrapper = document.querySelector(
+    '.course-info__courses-list'
+  )
+
+  const res = await fetch(
+    `http://localhost:4000/v1/courses/related/${courseShortName}`
+  )
+  const relatedCourses = await res.json()
+
+  if (relatedCourses.length) {
+    relatedCourses.forEach((course) => {
+      courseRelatedCoursesWrapper.insertAdjacentHTML(
+        'beforeend',
+        `
+          <li class="course-info__courses-list-item">
+            <a href="course.html?name=${course.shortName}" class="course-info__courses-link">
+              <img src="http://localhost:4000/courses/covers/${course.cover}" alt="Course Cover" class="course-info__courses-img">
+              <span class="course-info__courses-text">
+                ${course.name}
+              </span>
+            </a>
+        </li>
+      `
+      )
+    })
+  } else {
+  }
+
+  return relatedCourses
+}
 export {
   showUserNameInNavebar,
   renderTopbarMenus,
@@ -625,4 +657,5 @@ export {
   insertCourseBoxHtmlTemplate,
   coursesSorting,
   getCourseDetails,
+  getAndShowRelatedCourses,
 }
